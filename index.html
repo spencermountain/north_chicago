@@ -11,9 +11,11 @@
   a{color:steelblue;
   }
   </style>
-  <script src="http://code.jquery.com/jquery-latest.js"></script>
+  <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
+  <script src="./jquery-latest.min.js"></script>
   <script>
   $(document).ready(function(){
+    alert('jquery loaded')
     setTimeout(function(){
       navigator.notification.alert("did you just back my north?", function(){}, "yes sir", "ok dawg")
     },1000)
