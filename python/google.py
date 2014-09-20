@@ -4,9 +4,41 @@ with the image
 '''
 import json
 import urllib
+import requests
+from bs4 import BeautifulSoup
+import json
+
+
 from sys import argv
 
 UNSUPPORTED_MEDIA_STATUS = 415
+
+class LocalReverseGoogleSearcher(object):
+    def get(self, query_img):
+        headers = {}
+        headers['User-Agent'] = "Mozilla/5.0 (X11; Linux i686) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1312.27 Safari/537.17"
+        r = requests.get(
+            'http://www.google.com/searchbyimage?image_url={}'.format(
+                query_img.img_path), headers=headers)
+        html = r.text
+        soup = BeautifulSoup(html)
+        text = soup.find("a", class_="qb-b")
+
+        if text:
+            text = text.find(text=True)
+
+        matches = soup.find_all("h3", class_="r")
+
+        if matches:
+            output_matches = []
+            for match in matches:
+                output_matches.append(match.find(href=True)['href'])
+            matches = output_matches
+
+        output = {"best_search" : str(text), "direct_matches" : str(matches)}
+
+        print json.dumps(output)
+        return output
 
 class QueryImage(object):
     BASE_URL_FMT = "http://payback.ml:5000/{}"
@@ -16,7 +48,7 @@ class QueryImage(object):
         '''
         self.img_path = self._qualify(img_path)
         print "made path: {}".format(img_path)
-        self.searcher = ReverseGoogleSearcher()
+        self.searcher = LocalReverseGoogleSearcher() # ReverseGoogleSearcher()
 
     def _qualify(self, partial_path):
         return self.BASE_URL_FMT.format(partial_path)
