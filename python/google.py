@@ -4,6 +4,7 @@ with the image
 '''
 import json
 import urllib
+from sys import argv
 
 class QueryImage(object):
     def __init__(self, img_path):
@@ -18,7 +19,7 @@ class QueryImage(object):
         string
         Requires the ReverseGoogleSearcher object
         '''
-        resp = searcher.get(self.img_path)
+        resp = searcher.get(self)
         return resp['best_search']
 
 
@@ -31,12 +32,22 @@ class ReverseGoogleSearcher(object):
         image: QueryImage with a url of an image
 
         __Output__
-        json string (json dumps) with fields 'best_search': string
+        json object with fields 'best_search': string
         and 'direct_matches': list of strings
         '''
         data = urllib.urlencode({'image_url': image.img_path})
         results = urllib.urlopen(
             "https://sender.blockspring.com/api_v1/blocks/e84cf245c2bcf63" \
-            "03ef7b501305ef14b?api_key={}".format(API_KEY),
+            "03ef7b501305ef14b?api_key={}".format(self.API_KEY),
             data).read()
-        return results
+        first_load = json.loads(results)['results']
+        return json.loads(first_load)
+
+
+def main(img_url):
+    searcher = ReverseGoogleSearcher()
+    img = QueryImage(img_url)
+    print img.recognize(searcher)
+
+if __name__ == '__main__':
+    main(argv[1])
