@@ -83,7 +83,6 @@ def upload():
     print "got request: {}".format(request)
     print "has files: {}".format(request.files)
     file_ = request.files.get('image')
-
     try:
         print "going to try to save"
         img_path = PhotoFilter.save(file_)
