@@ -17,8 +17,8 @@ window.webcam= (id="canvasHolder", cb=->)->
     #add canvas to #canvasHolder
     document.getElementById(id).appendChild canvas
     ctx = canvas.getContext("2d")
-    # canvas.width= 500
-    # canvas.height= 500
+    canvas.width= 300
+    canvas.height= 300
     ctx.drawImage video, 0, 0, 300, 300
 
     #save canvas image as data url

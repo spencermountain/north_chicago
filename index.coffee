@@ -8,6 +8,7 @@ arr= [
   "./libs/colour.js",
   "./coffeejs/webcam.js",
   "./coffeejs/line_chart.js",
+  "./coffeejs/side_chart.js",
 ]
 head.js.apply(this, arr);
 
@@ -16,9 +17,9 @@ head ->
   window.my_width= 280
   window.my_height= 493
 
-  make_fact= ()->
-    value= 34.04
-    title= "New York Times"
+  make_fact= (obj={})->
+    obj.value= obj.value||34.04
+    obj.title= obj.value||"New York Times"
     time= "3 minutes ago"
     cents= (value - parseInt(value)).toFixed(2);
     cents= cents.replace(/^0\./,'')
@@ -31,10 +32,12 @@ head ->
         <span style="position:absolute; top:165px; display:inline-block; left:170px; font-size:50px; color:darkseagreen;">.#{cents}</span>
         <span style="position:relative; top:55px; left:-75px; display:inline-block; font-size:20px; color:steelblue;">#{time}</span>
         <svg id="chart" style="position:relative; display:block; left:25px; height:100px; width:80%;"></svg>
+        <div id="sidechart" style="position:relative; display:block; left:25px; height:100px; width:80%;"></div>
       </div>
     """
     $("#fact_pane").html(html)
     line_chart("#chart")
+    side_chart("#sidechart")
 
   state= 0
   change_state=()->
@@ -95,11 +98,24 @@ head ->
 
       #cross
         div {
-          style:"position:absolute; display:block; left:50%; top:0px; width:1px; height:#{window.my_height}px; background-color:black;"
+          style:"position:absolute; display:block; left:50%; top:0px; width:1px; height:#{window.my_height}px; background-color:rgb(31,71,103);"
         }
         div {
-          style:"position:absolute; display:block; left:0%; top:38%; height:1px; width:#{window.my_width}px; background-color:black;"
+          style:"position:absolute; display:block; left:0%; top:38%; height:1px; width:#{window.my_width}px; background-color:rgb(31,71,103);"
         }
+
+  fake_data=->
+    arr= [
+      {
+        title:"New York Times",
+        value: 47.2
+      },
+      {
+        title:"New York Times",
+        value: 47.2
+      },
+    ]
+    r= Math.random()*
   send_to_patrick=(data)->
     # alert(data)
     change_state()
