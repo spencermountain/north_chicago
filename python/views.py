@@ -1,6 +1,7 @@
 import os
 import hashlib
 import ipdb
+import google
 
 from flask import Flask, request, render_template, jsonify
 
@@ -59,13 +60,19 @@ def index():
 
 @app.route('/upload', methods=['POST'])
 def upload():
+    '''
+    uploads a photo and returns json object with key best_search value string
+    corresponding to the result
+    '''
     print "got request: {}".format(request)
     print "has files: {}".format(request.files)
     file_ = request.files.get('image')
 
     try:
         print "going to try to save"
-        img = PhotoFilter.save(file_)
-        return jsonify({"imgname": img})
+        img_path = PhotoFilter.save(file_)
+        query_image = google.QueryImage(img_path)
+        resp = query_image.recognize()
+        return jsonify({"best_search": resp})
     except BadFileError:
         return jsonify({"resp":"error"}), UNSUPPORTED_MEDIA_STATUS
