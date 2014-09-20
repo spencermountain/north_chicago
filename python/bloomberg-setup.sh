@@ -10,6 +10,7 @@ tar -xvf blpapi_cpp_3.7.9.1-linux.tar.gz
 tar -xvf blpapi_python_3.5.5.tar.gz
 
 export BLPAPI_ROOT=$(pwd)/blpapi_cpp_3.7.9.1
+export LD_LIBRARY_PATH=$(pwd)/blpapi_cpp_3.7.9.1/Linux
 
 cd blpapi-3.5.5
 python setup.py install

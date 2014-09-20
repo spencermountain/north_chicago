@@ -5,8 +5,6 @@ import google
 
 from flask import Flask, request, render_template, jsonify
 
-UNSUPPORTED_MEDIA_STATUS = 415
-
 app = Flask(__name__)
 
 class BadFileError(Exception):
@@ -49,10 +47,6 @@ class PhotoFilter(object):
         else:
             raise BadFileError()
 
-class QueryImage(object):
-    def recognise(self):
-        pass
-
 @app.route('/', methods=['GET', 'POST'])
 def index():
     print "HELLO WORLD??"
@@ -71,6 +65,7 @@ def upload():
     try:
         print "going to try to save"
         img_path = PhotoFilter.save(file_)
+        print "got path: {}".format(img_path)
         query_image = google.QueryImage(img_path)
         resp = query_image.recognize()
         return jsonify({"best_search": resp})
