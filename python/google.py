@@ -22,12 +22,14 @@ class LocalReverseGoogleSearcher(object):
                 query_img.img_path), headers=headers)
         html = r.text
         soup = BeautifulSoup(html)
-        entries = soup.find_all("div", class_="info")
+        entries = [el.find("a").text
+                   for el in soup.find_all("div", class_="info")]
+        fortune500 = ['Facebook']
 
         if entries:
             for entry in entries:
                 for company in fortune500:
-                    if entry.find(company):
+                    if company in entry:
                         return company
 
 class QueryImage(object):
@@ -50,7 +52,7 @@ class QueryImage(object):
         Requires the ReverseGoogleSearcher object
         '''
         resp = self.searcher.get(self)
-        return resp['best_search']
+        return resp
 
 
 class ReverseGoogleSearcher(object):
