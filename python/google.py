@@ -24,13 +24,12 @@ class LocalReverseGoogleSearcher(object):
         soup = BeautifulSoup(html)
         entries = [el.find("a").text
                    for el in soup.find_all("div", class_="info")]
-        fortune500 = ['Facebook']
+        fortune500 = ['adidas']
 
-        if entries:
-            for entry in entries:
-                for company in fortune500:
-                    if company in entry:
-                        return company
+        for entry in [entry.lower() for entry in entries]:
+            for company in fortune500:
+                if company in entry:
+                    return company
 
 class QueryImage(object):
     BASE_URL_FMT = "http://payback.ml:5000/{}"
