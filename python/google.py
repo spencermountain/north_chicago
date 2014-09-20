@@ -9,7 +9,7 @@ from sys import argv
 UNSUPPORTED_MEDIA_STATUS = 415
 
 class QueryImage(object):
-    BASE_URL_FMT = "payback.ml:5000/{}"
+    BASE_URL_FMT = "http://payback.ml:5000/{}"
     def __init__(self, img_path):
         '''
         img_path : string representing the url of the image
