@@ -30,13 +30,10 @@
         <title>Hello World</title>
     </head>
     <body>
-        <div class="app">
-            <h1>PhoneGap</h1>
-            <div id="deviceready" class="blink">
-                <p class="event listening">Connecting to Device</p>
-                <p class="event received">Device is Ready</p>
-            </div>
+        <a href="#">hello</a>
+        <div id="myImage">
         </div>
+
         <script type="text/javascript" src="cordova.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
         <script type="text/javascript">
@@ -46,26 +43,18 @@
 
 
 
-            var onSuccess = function(position) {
-                alert('Latitude: '          + position.coords.latitude          + '\n' +
-                      'Longitude: '         + position.coords.longitude         + '\n' +
-                      'Altitude: '          + position.coords.altitude          + '\n' +
-                      'Accuracy: '          + position.coords.accuracy          + '\n' +
-                      'Altitude Accuracy: ' + position.coords.altitudeAccuracy  + '\n' +
-                      'Heading: '           + position.coords.heading           + '\n' +
-                      'Speed: '             + position.coords.speed             + '\n' +
-                      'Timestamp: '         + position.timestamp                + '\n');
-            };
+            navigator.camera.getPicture(onSuccess, onFail, { quality: 50,
+                destinationType: Camera.DestinationType.DATA_URL
+            });
 
-            // onError Callback receives a PositionError object
-            //
-            function onError(error) {
-                alert('code: '    + error.code    + '\n' +
-                      'message: ' + error.message + '\n');
+            function onSuccess(imageData) {
+                var image = document.getElementById('myImage');
+                image.src = "data:image/jpeg;base64," + imageData;
             }
 
-            navigator.geolocation.getCurrentPosition(onSuccess, onError);
-
+            function onFail(message) {
+                alert('Failed because: ' + message);
+            }
 
 
         </script>
