@@ -26,7 +26,7 @@ head ->
 
         <span style="position:relative; top: 25px; display:inline-block; font-size:180px; color:slategrey;">#{parseInt(value)}</span>
         <span style="position:relative; top:-45px; display:inline-block; font-size:50px; color:darkseagreen;">.#{cents}</span>
-        <span style="position:relative; top:55px; left:-75px; display:inline-block; font-size:20px; color:#{colourscheme.bluebrowns(0.8)};">#{time}</span>
+        <span style="position:relative; top:55px; left:-75px; display:inline-block; font-size:20px; color:steelblue;">#{time}</span>
         <svg id="chart" style="position:relative; display:block; left:25px; height:100px; width:80%;"></svg>
       </div>
     """
@@ -35,9 +35,10 @@ head ->
 
   state= 0
   change_state=()->
+    $("#by_image").html('')
     if state==0
       make_fact()
-      $("#fact_pane").animate {height:"50%"}, {duration:500, easing:"easeOutExpo"}
+      $("#fact_pane").animate {height:"80%"}, {duration:500, easing:"easeOutExpo"}
       state= 1
     else
       $("#fact_pane").animate {height:"18%"}, {duration:500, easing:"easeOutExpo"}
@@ -50,14 +51,20 @@ head ->
       },->
         div {
           id:"video_pane"
-          style:"position:relative;  display:block; width:100%; height:80%; overflow:hidden; border:10px solid #{colourscheme.bluebrowns(0.6)}; border-radius:5px;"
+          style:"position:relative;  display:block; width:100%; height:80%; overflow:hidden; border-radius:5px;"
           insert:->
             video= """
                 <div id="canvasHolder" style="display:none;"></div>
-                <video id="video" style="position:absolute; top:0px; cursor:pointer; width:100%; height:400px; " src=""></video>
+                <video id="video" style="position:absolute; top:0px; cursor:pointer; width:700px; height:400px; " src=""></video>
               """
             $(this).ojAppend(video)
-            window.webcam("canvasHolder", send_to_patrick)
+            window.webcam("canvasHolder", (data)->send_to_patrick(data))
+            message= """
+              <span id="by_image" style="position:absolute; text-align:left; z-index:1; left:20px; top: 25px; display:inline-block; font-size:100px; color:steelblue;">
+                search by image
+              </span>
+            """
+            $(this).append(message)
           },->
         div {
           id:"fact_pane"
@@ -70,4 +77,6 @@ head ->
     )
 
   send_to_patrick=(data)->
-    alert(data)
+    # alert(data)
+    change_state()
+
