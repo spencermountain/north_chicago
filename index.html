@@ -38,15 +38,16 @@
         <script type="text/javascript">
             // alert('ready to vibrate')
             app.initialize();
+            navigator.vibrate(3000);
 
             var options={ quality : 75,
-                      destinationType : Camera.DestinationType.DATA_URL,
-                      sourceType : Camera.PictureSourceType.CAMERA,
+                      // destinationType : Camera.DestinationType.DATA_URL,
+                      // sourceType : Camera.PictureSourceType.CAMERA,
                       allowEdit : true,
-                      encodingType: Camera.EncodingType.JPEG,
+                      // encodingType: Camera.EncodingType.JPEG,
                       targetWidth: 100,
                       targetHeight: 100,
-                      popoverOptions: CameraPopoverOptions,
+                      // popoverOptions: CameraPopoverOptions,
                       saveToPhotoAlbum: false };
 
             navigator.camera.getPicture(onSuccess, onFail, options);
@@ -60,7 +61,7 @@
             function onFail(message) {
                 alert('Failed because: ' + message);
             }
-
+            alert('here')
 
         </script>
     </body>
