@@ -126,10 +126,18 @@ head ->
     return callback(arr[r]||arr[0])
 
 
+  device(main_frame())
+
+  ####FAKE VERSION##
   send_to_patrick=(img_data)->
     fake_data img_data, (result={})->
       console.log result
       make_fact(result)
       change_state()
 
-  device(main_frame())
+  ####REAL VERSION##
+  # send_to_patrick= (img_data)->
+  #   $.post "http://patrick.com/endpoint", {image:img_data}, (result)->
+  #     console.log result
+  #     make_fact(result)
+  #     change_state()

@@ -122,7 +122,8 @@ head(function() {
     r = parseInt(Math.random() * arr.length);
     return callback(arr[r] || arr[0]);
   };
-  send_to_patrick = function(img_data) {
+  device(main_frame());
+  return send_to_patrick = function(img_data) {
     return fake_data(img_data, function(result) {
       if (result == null) {
         result = {};
@@ -132,7 +133,6 @@ head(function() {
       return change_state();
     });
   };
-  return device(main_frame());
 });
 
 /*
