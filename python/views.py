@@ -3,7 +3,6 @@ import hashlib
 import ipdb
 
 from flask import Flask, request, render_template, jsonify
-# from app import app
 
 UNSUPPORTED_MEDIA_STATUS = 415
 
@@ -64,7 +63,6 @@ def upload():
     print "has files: {}".format(request.files)
     file_ = request.files.get('image')
 
-    # ipdb.set_trace()
     try:
         print "going to try to save"
         img = PhotoFilter.save(file_)
