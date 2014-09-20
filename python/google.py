@@ -15,13 +15,9 @@ companies = [c.lower() for c in companies]
 
 class LocalReverseGoogleSearcher(object):
     def get(self, query_img):
-<<<<<<< HEAD
-        r = requests.get('https://www.bing.com/images/searchbyimage?FORM=IRSBIQ&cbir=sbi&imgurl=http%3A%2F%2Fi.imgur.com%2F1QPXzNR.jpg')
-=======
         r = requests.get(
             'https://www.bing.com/images/searchbyimage?FORM=IRSBIQ&cbir=sbi&imgurl={}'.format(
-                query_img.img_path), headers=headers)
->>>>>>> parent of b5fd7d0... aaaaaaaa
+                query_img.img_path))
         html = r.text
         soup = BeautifulSoup(html)
         entries = [el.find("a").text
@@ -29,6 +25,7 @@ class LocalReverseGoogleSearcher(object):
 
         print "got entries: {}".format(entries)
         for entry in [entry.lower() for entry in entries]:
+            print entry
             for company in companies:
                 print "checking company: {}".format(company)
                 if company in entry:
@@ -42,8 +39,9 @@ class QueryImage(object):
         '''
         img_path : string representing the url of the image
         '''
-        # self.img_path = self._qualify(img_path)
-        self.img_path = "http://i.imgur.com/1QPXzNR.jpg"
+        self.img_path = self._qualify(img_path)
+        #PATRICK!
+        #self.img_path = "http://i.imgur.com/1QPXzNR.jpg"
         print "made path: {}".format(img_path)
         self.searcher = LocalReverseGoogleSearcher() # ReverseGoogleSearcher()
 
