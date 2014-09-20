@@ -6,8 +6,10 @@ arr = ["./libs/jquery.js", "./libs/sugar.js", "./libs/oj.js", "./libs/easings.js
 head.js.apply(this, arr);
 
 head(function() {
-  var change_state, make_fact, send_to_patrick, state;
+  var change_state, device, main_frame, make_fact, send_to_patrick, state;
   oj.useGlobally();
+  window.my_width = 280;
+  window.my_height = 493;
   make_fact = function() {
     var cents, html, time, title, value;
     value = 234.04;
@@ -15,7 +17,7 @@ head(function() {
     time = "3 minutes ago";
     cents = (value - parseInt(value)).toFixed(2);
     cents = cents.replace(/^0\./, '');
-    html = "<div id=\"infact\" style=\"width:100%; text-align:center; height:" + 200 + "px; position:relative;\">\n  <span style=\"position:absolute; display:inline-block; top:5px; left:5px; font-size:22px; color:steelblue;\">" + title + "</span>\n\n  <span style=\"position:relative; top: 25px; display:inline-block; font-size:180px; color:slategrey;\">" + (parseInt(value)) + "</span>\n  <span style=\"position:relative; top:-45px; display:inline-block; font-size:50px; color:darkseagreen;\">." + cents + "</span>\n  <span style=\"position:relative; top:55px; left:-75px; display:inline-block; font-size:20px; color:steelblue;\">" + time + "</span>\n  <svg id=\"chart\" style=\"position:relative; display:block; left:25px; height:100px; width:80%;\"></svg>\n</div>";
+    html = "<div id=\"infact\" style=\"width:100%; text-align:center; height:" + 200 + "px; position:relative;\">\n  <span style=\"position:absolute; display:inline-block; top:5px; left:5px; font-size:22px; color:steelblue;\">" + title + "</span>\n  <span style=\"position:absolute; top:45px; left:5px; font-size:42px; color:steelblue;\">$</span>\n\n  <span style=\"position:relative; top: 25px; display:inline-block; font-size:180px; color:slategrey;\">" + (parseInt(value)) + "</span>\n  <span style=\"position:relative; top:-45px; display:inline-block; left:50px; font-size:50px; color:darkseagreen;\">." + cents + "</span>\n  <span style=\"position:relative; top:55px; left:-75px; display:inline-block; font-size:20px; color:steelblue;\">" + time + "</span>\n  <svg id=\"chart\" style=\"position:relative; display:block; left:25px; height:100px; width:80%;\"></svg>\n</div>";
     $("#fact_pane").html(html);
     return line_chart("#chart");
   };
@@ -33,7 +35,7 @@ head(function() {
       return state = 1;
     } else {
       $("#fact_pane").animate({
-        height: "18%"
+        height: "25%"
       }, {
         duration: 500,
         easing: "easeOutExpo"
@@ -41,34 +43,62 @@ head(function() {
       return state = 0;
     }
   };
-  $("body").oj(div({
-    style: "position:relative; display:block; width:100%; height:680px; border:1px solid grey;"
-  }, function() {
-    div({
-      id: "video_pane",
-      style: "position:relative;  display:block; width:100%; height:80%; overflow:hidden; border-radius:5px;",
-      insert: function() {
-        var message, video;
-        video = "<div id=\"canvasHolder\" style=\"display:none;\"></div>\n<video id=\"video\" style=\"position:absolute; top:0px; cursor:pointer; width:700px; height:400px; \" src=\"\"></video>";
-        $(this).ojAppend(video);
-        window.webcam("canvasHolder", function(data) {
-          return send_to_patrick(data);
-        });
-        message = "<span id=\"by_image\" style=\"position:absolute; text-align:left; z-index:1; left:20px; top: 25px; display:inline-block; font-size:100px; color:steelblue;\">\n  search by image\n</span>";
-        return $(this).append(message);
-      }
-    }, function() {});
+  device = function(ojarr) {
+    if (ojarr == null) {
+      ojarr = [];
+    }
+    return $("body").oj(div({
+      style: "position:absolute; display:block; width:700px; background-repeat:no-repeat; height:700px; background-image:url(./frame.svg);"
+    }, function() {
+      return div({
+        style: "position:absolute; overflow:none; display:block; left:30px; top: 106px; width:" + window.my_width + "px; height:" + window.my_height + "px; background-color:white;"
+      }, function() {
+        return ojarr;
+      });
+    }));
+  };
+  main_frame = function() {
     return div({
-      id: "fact_pane",
-      style: "position:absolute; bottom:0px; background-color:white; z-index:2; width:100%; height:18%; overflow:hidden; border:10px solid " + (colourscheme.bluebrowns(0.6)) + ";",
-      click: function() {
-        return change_state();
-      }
-    }, function() {});
-  }));
-  return send_to_patrick = function(data) {
+      style: "position:relative; display:block; overflow:hidden; width:" + window.my_width + "px; height:" + window.my_height + "px; border:1px solid grey;"
+    }, function() {
+      div({
+        id: "video_pane",
+        style: "position:relative;  display:block; width:100%; height:80%;  border-radius:5px;",
+        insert: function() {
+          var message, video;
+          video = "<div id=\"canvasHolder\" style=\"display:none;\"></div>\n<video id=\"video\" style=\"position:absolute; top:0px; cursor:pointer; width:" + (window.my_width + 200) + "px; height:" + (window.my_height - 125) + "px; \" src=\"\"></video>";
+          $(this).ojAppend(video);
+          window.webcam("canvasHolder", function(data) {
+            return send_to_patrick(data);
+          });
+          return message = "<span id=\"by_image\" style=\"position:absolute; text-align:left; z-index:1; left:20px; top: 25px; display:inline-block; font-size:100px; color:steelblue;\">\n  search by image\n</span>";
+        }
+      }, function() {});
+      div({
+        id: "fact_pane",
+        style: "position:absolute; bottom:0px; background-color:white; z-index:2; width:100%; height:25%; overflow:hidden; border-top:10px solid steelblue;",
+        click: function() {
+          return change_state();
+        }
+      }, function() {
+        return span({
+          style: "color:steelblue; position:relative; left:25px; top:35px; font-size:24px;"
+        }, function() {
+          return "Insight into a company";
+        });
+      });
+      div({
+        style: "position:absolute; display:block; left:50%; top:0px; width:1px; height:" + window.my_height + "px; background-color:black;"
+      });
+      return div({
+        style: "position:absolute; display:block; left:0%; top:50%; height:1px; width:" + window.my_width + "px; background-color:black;"
+      });
+    });
+  };
+  send_to_patrick = function(data) {
     return change_state();
   };
+  return device(main_frame());
 });
 
 /*

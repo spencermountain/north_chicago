@@ -24,7 +24,7 @@ window.webcam = function(id, cb) {
     document.body.appendChild(canvas);
     document.getElementById(id).appendChild(canvas);
     ctx = canvas.getContext("2d");
-    ctx.drawImage(video, 0, 0, 700, 300);
+    ctx.drawImage(video, 0, 0, 300, 300);
     dataURL = canvas.toDataURL();
     console.log(dataURL);
     return cb(dataURL);

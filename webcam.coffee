@@ -19,7 +19,7 @@ window.webcam= (id="canvasHolder", cb=->)->
     ctx = canvas.getContext("2d")
     # canvas.width= 500
     # canvas.height= 500
-    ctx.drawImage video, 0, 0, 700, 300
+    ctx.drawImage video, 0, 0, 300, 300
 
     #save canvas image as data url
     dataURL = canvas.toDataURL()
