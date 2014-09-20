@@ -1,7 +1,8 @@
 import os
 import hashlib
 import ipdb
-import google
+import bing
+import flickrapi
 
 from flask import Flask, request, render_template, jsonify, send_file, abort
 
@@ -63,8 +64,8 @@ class PhotoFilter(object):
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
-    print "HELLO WORLD??"
-    return jsonify({"resp": "HELLO WORLD"})
+    print "Server up and running."
+    return jsonify({"resp": "As you were."})
 
 @app.route('/photos/<identifier>', methods=['GET'])
 def serve(identifier):
@@ -79,16 +80,40 @@ def upload():
     '''
     uploads a photo and returns json object with key best_search value string
     corresponding to the result
+    To upload photos to flickr, POST to https://up.flickr.com/services/upload/ with
+    photo: <file>
+    other stuff optional
+    API key: 5a825e3fa13537b8afb6c437f4472a3a
     '''
     print "got request: {}".format(request)
     print "has files: {}".format(request.files)
     file_ = request.files.get('image')
-    try:
-        print "going to try to save"
-        img_path = PhotoFilter.save(file_)
-        print "got path: {}".format(img_path)
-        query_image = google.QueryImage(img_path)
-        resp = query_image.recognize()
-        return jsonify({"best_search": resp})
-    except BadFileError:
-        return jsonify({"resp":"error"}), 415
+    api_key = '5a825e3fa13537b8afb6c437f4472a3a'
+    api_secret = 'd66a167af0701cfc'
+    img_path = ''
+    flickr = flickerapi.FlickrAPI(api_key, api_secret, format='json')
+
+
+    (token, frob) = flickr.get_token_part_one(perms='write')
+    if not token:
+        raw_input('Press ENTER after you authorize this program')
+    flickr.get_token_part_two((token, frob))
+    #def callback(progress, done):
+    #    if done:
+    #        print "Upload finished to img_path={}".format(img_path)
+    #   else:
+    #        print "Upload {}% completed".format(progress)
+
+    resp = flickr.upload(file_)
+    #callback, title, description, tags, is_public, is_family, content_type, hidden, format='rest')
+    print resp
+    # try:
+    #     session.post('https://up.flickr.com/services/upload/', {'photo': file_})
+    #     img_path =
+
+    #     print "got path: {}".format(img_path)
+    #     query_image = bing.QueryImage(img_path)
+    #     resp = query_image.recognize()
+    #     return jsonify({"best_search": resp})
+    # except BadFileError:
+    #     return jsonify({"resp":"error"}), 415
