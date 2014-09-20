@@ -20,13 +20,18 @@ class LocalReverseGoogleSearcher(object):
         r = requests.get(
             'https://www.bing.com/images/searchbyimage?FORM=IRSBIQ&cbir=sbi&imgurl={}'.format(
                 query_img.img_path), headers=headers)
+        print r
+        print r.status_code
         html = r.text
         soup = BeautifulSoup(html)
+        print soup
         entries = [el.find("a").text
                    for el in soup.find_all("div", class_="info")]
 
+        print "got entries: {}".format(entries)
         for entry in [entry.lower() for entry in entries]:
             for company in companies:
+                print "checking company: {}".format(company)
                 if company in entry:
                     return company
                 else:

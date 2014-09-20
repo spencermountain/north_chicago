@@ -70,7 +70,7 @@ def index():
 def serve(identifier):
     print "serving! for {}".format(identifier)
     try:
-        return send_file(PhotoFilter.serve(identifier))
+        return send_file(open(PhotoFilter.serve(identifier)))
     except BadFileError:
         abort(404)
 
