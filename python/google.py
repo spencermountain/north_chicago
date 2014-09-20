@@ -18,27 +18,17 @@ class LocalReverseGoogleSearcher(object):
         headers = {}
         headers['User-Agent'] = "Mozilla/5.0 (X11; Linux i686) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1312.27 Safari/537.17"
         r = requests.get(
-            'http://www.google.com/searchbyimage?image_url={}'.format(
+            'https://www.bing.com/images/searchbyimage?FORM=IRSBIQ&cbir=sbi&imgurl={}'.format(
                 query_img.img_path), headers=headers)
         html = r.text
         soup = BeautifulSoup(html)
-        text = soup.find("a", class_="qb-b")
+        entries = soup.find_all("div", class_="info")
 
-        if text:
-            text = text.find(text=True)
-
-        matches = soup.find_all("h3", class_="r")
-
-        if matches:
-            output_matches = []
-            for match in matches:
-                output_matches.append(match.find(href=True)['href'])
-            matches = output_matches
-
-        output = {"best_search" : str(text), "direct_matches" : str(matches)}
-
-        print json.dumps(output)
-        return output
+        if entries:
+            for entry in entries:
+                for company in fortune500:
+                    if entry.find(company):
+                        return company
 
 class QueryImage(object):
     BASE_URL_FMT = "http://payback.ml:5000/{}"
