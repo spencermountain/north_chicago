@@ -17,7 +17,7 @@ class LocalReverseGoogleSearcher(object):
     def get(self, query_img):
         r = requests.get(
             'https://www.bing.com/images/searchbyimage?FORM=IRSBIQ&cbir=sbi&imgurl={}'.format(
-                query_img.img_path), headers=headers)
+                query_img.img_path))
         html = r.text
         soup = BeautifulSoup(html)
         entries = [el.find("a").text
