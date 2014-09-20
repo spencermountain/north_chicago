@@ -31,6 +31,8 @@ class LocalReverseGoogleSearcher(object):
             for company in companies:
                 if company in entry:
                     return company
+                else:
+                    print "{} doesn't match".format(company)
 
 class QueryImage(object):
     BASE_URL_FMT = "http://payback.ml:5000/{}"

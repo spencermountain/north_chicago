@@ -92,4 +92,4 @@ def upload():
         resp = query_image.recognize()
         return jsonify({"best_search": resp})
     except BadFileError:
-        return jsonify({"resp":"error"}), UNSUPPORTED_MEDIA_STATUS
+        return jsonify({"resp":"error"}), 415
