@@ -44,6 +44,7 @@ class ReverseGoogleSearcher(object):
         and 'direct_matches': list of strings
         '''
         data = urllib.urlencode({'image_url': image.img_path})
+        print "sending data: {}".format(data)
         results = urllib.urlopen(
             "https://sender.blockspring.com/api_v1/blocks/e84cf245c2bcf63" \
             "03ef7b501305ef14b?api_key={}".format(self.API_KEY),

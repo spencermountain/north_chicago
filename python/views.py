@@ -3,9 +3,9 @@ import hashlib
 import ipdb
 import google
 
-from flask import Flask, request, render_template, jsonify
+from flask import Flask, request, render_template, jsonify, send_file, abort
 
-app = Flask(__name__)
+app = Flask(__name__, static_url_path='')
 
 class BadFileError(Exception):
     pass
@@ -41,16 +41,36 @@ class PhotoFilter(object):
             print "is allowed"
             filename = "{}.{}".format(cls.hash(file_),
                                       cls.ext_of(file_))
-            filepath = os.path.join(cls.UPLOAD_DIR, filename)
+            filepath = cls._qualify(filename)
             file_.save(filepath)
             return filepath
         else:
             raise BadFileError()
 
+    @classmethod
+    def _qualify(cls, name):
+        return os.path.join(cls.UPLOAD_DIR, name)
+
+    @classmethod
+    def serve(cls, name):
+        path = cls._qualify(name)
+        if os.path.exists(path):
+            return path
+        else:
+            raise BadFileError()
+
+
 @app.route('/', methods=['GET', 'POST'])
 def index():
     print "HELLO WORLD??"
     return jsonify({"resp": "HELLO WORLD"})
+
+@app.route('/photos/<identifier>', methods=['GET'])
+def serve(identifier):
+    try:
+        return send_file(PhotoFilter.serve(identifier))
+    except BadFileError:
+        abort(404)
 
 @app.route('/upload', methods=['POST'])
 def upload():
