@@ -70,7 +70,7 @@ def index():
 def serve(identifier):
     print "serving! for {}".format(identifier)
     try:
-        return send_file(PhotoFilter.serve(identifier))
+        return send_file(open(PhotoFilter.serve(identifier)))
     except BadFileError:
         abort(404)
 
@@ -92,4 +92,4 @@ def upload():
         resp = query_image.recognize()
         return jsonify({"best_search": resp})
     except BadFileError:
-        return jsonify({"resp":"error"}), UNSUPPORTED_MEDIA_STATUS
+        return jsonify({"resp":"error"}), 415

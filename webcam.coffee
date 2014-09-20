@@ -1,7 +1,5 @@
 
 window.webcam= (id="canvasHolder", cb=->)->
-
-
   connect = (stream) ->
     video = document.getElementById("video")
     video.src = (if window.URL then window.URL.createObjectURL(stream) else stream)
@@ -19,9 +17,9 @@ window.webcam= (id="canvasHolder", cb=->)->
     #add canvas to #canvasHolder
     document.getElementById(id).appendChild canvas
     ctx = canvas.getContext("2d")
-    canvas.width= 500
-    canvas.height= 500
-    ctx.drawImage video, 0, 0, 500, 500
+    canvas.width= 300
+    canvas.height= 300
+    ctx.drawImage video, 0, 0, 300, 300
 
     #save canvas image as data url
     dataURL = canvas.toDataURL()
