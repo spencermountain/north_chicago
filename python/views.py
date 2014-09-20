@@ -68,6 +68,7 @@ def index():
 
 @app.route('/photos/<identifier>', methods=['GET'])
 def serve(identifier):
+    print "serving! for {}".format(identifier)
     try:
         return send_file(PhotoFilter.serve(identifier))
     except BadFileError:
