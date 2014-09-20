@@ -32,6 +32,7 @@ class PhotoFilter(object):
     def hash(cls, file_):
         hash_ = hashlib.md5()
         hash_.update(file_.read())
+        file_.seek(0)
         return hash_.hexdigest()
 
     @classmethod
