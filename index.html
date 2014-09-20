@@ -1,86 +1,46 @@
+<!DOCTYPE html>
+<!--
+    Copyright (c) 2012-2014 Adobe Systems Incorporated. All rights reserved.
+
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+     KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
 <html>
-
-<html>
-<head>
-  <style>
-  body{
-    font-family:"Helvetica","Univers","Helvetica Neue",arial,helvetica,sans-serif;
-    font-size:22px;
-    color:#808080;
-  }
-  a{color:steelblue;
-  }
-  </style>
-  <script src="./jquery-latest.min.js"></script>
-  <script>
-  $(document).ready(function(){
-    alert('jquery loaded')
-    // setTimeout(function(){
-    //   navigator.notification.alert("did you just back my north?", function(){}, "yes sir", "ok dawg")
-    // },1000)
-
-
-        var video;
-        var dataURL;
-
-        //http://coderthoughts.blogspot.co.uk/2013/03/html5-video-fun.html - thanks :)
-        function setup() {
-            navigator.myGetMedia = (navigator.getUserMedia ||
-            navigator.webkitGetUserMedia ||
-            navigator.mozGetUserMedia ||
-            navigator.msGetUserMedia);
-            navigator.myGetMedia({ video: true }, connect, error);
-        }
-
-        function connect(stream) {
-            video = document.getElementById("video");
-            video.src = window.URL ? window.URL.createObjectURL(stream) : stream;
-            video.play();
-        }
-
-        function error(e) { console.log(e); }
-
-        addEventListener("load", setup);
-
-        function captureImage() {
-            var canvas = document.createElement('canvas');
-            canvas.id = 'hiddenCanvas';
-            //add canvas to the body element
-            document.body.appendChild(canvas);
-            //add canvas to #canvasHolder
-            document.getElementById('canvasHolder').appendChild(canvas);
-            var ctx = canvas.getContext('2d');
-            canvas.width = video.videoWidth / 4;
-            canvas.height = video.videoHeight / 4;
-            ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-            //save canvas image as data url
-            dataURL = canvas.toDataURL();
-            //set preview image src to dataURL
-            // document.getElementById('preview').src = dataURL;
-            // place the image value in the text box
-            // document.getElementById('imageToForm').value = dataURL;
-        }
-
-        //Bind a click to a button to capture an image from the video stream
-        var el = document.getElementById("button");
-        el.addEventListener("click", captureImage, false);
-
-
-
-
-  });
-  </script>
-</head>
-  <body>
-        <p>
-          <a href="#" id="button">click</a>
-        </p>
-
-        <!-- target for the canvas-->
-        <div id="canvasHolder"><canvas id="hiddenCanvas" width="160" height="120"></canvas></div>
-
-        <video id="video" src=""></
-
-        <input id="imageToForm" type="text">
-  </body>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="msapplication-tap-highlight" content="no" />
+        <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+        <link rel="stylesheet" type="text/css" href="css/index.css" />
+        <title>Hello World</title>
+    </head>
+    <body>
+        <div class="app">
+            <h1>PhoneGap</h1>
+            <div id="deviceready" class="blink">
+                <p class="event listening">Connecting to Device</p>
+                <p class="event received">Device is Ready</p>
+            </div>
+        </div>
+        <script type="text/javascript" src="cordova.js"></script>
+        <script type="text/javascript" src="js/index.js"></script>
+        <script type="text/javascript">
+            app.initialize();
+        </script>
+    </body>
 </html>
