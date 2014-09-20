@@ -6,8 +6,6 @@ import json
 import urllib
 import requests
 from bs4 import BeautifulSoup
-
-
 from tech_companies import companies
 from sys import argv
 
