@@ -17,7 +17,7 @@ head ->
   window.my_height= 493
 
   make_fact= ()->
-    value= 234.04
+    value= 34.04
     title= "New York Times"
     time= "3 minutes ago"
     cents= (value - parseInt(value)).toFixed(2);
@@ -28,7 +28,7 @@ head ->
         <span style="position:absolute; top:45px; left:5px; font-size:42px; color:steelblue;">$</span>
 
         <span style="position:relative; top: 25px; display:inline-block; font-size:180px; color:slategrey;">#{parseInt(value)}</span>
-        <span style="position:relative; top:-45px; display:inline-block; left:50px; font-size:50px; color:darkseagreen;">.#{cents}</span>
+        <span style="position:absolute; top:165px; display:inline-block; left:170px; font-size:50px; color:darkseagreen;">.#{cents}</span>
         <span style="position:relative; top:55px; left:-75px; display:inline-block; font-size:20px; color:steelblue;">#{time}</span>
         <svg id="chart" style="position:relative; display:block; left:25px; height:100px; width:80%;"></svg>
       </div>
@@ -80,6 +80,7 @@ head ->
                 search by image
               </span>
             """
+            $(this).append("<div style='position:absolute; z-index:4; top:0px; height:10px; background-color:steelblue; width:100%;'></div>")
             # $(this).append(message)
           },->
         div {
@@ -97,7 +98,7 @@ head ->
           style:"position:absolute; display:block; left:50%; top:0px; width:1px; height:#{window.my_height}px; background-color:black;"
         }
         div {
-          style:"position:absolute; display:block; left:0%; top:50%; height:1px; width:#{window.my_width}px; background-color:black;"
+          style:"position:absolute; display:block; left:0%; top:38%; height:1px; width:#{window.my_width}px; background-color:black;"
         }
   send_to_patrick=(data)->
     # alert(data)

@@ -12,12 +12,12 @@ head(function() {
   window.my_height = 493;
   make_fact = function() {
     var cents, html, time, title, value;
-    value = 234.04;
+    value = 34.04;
     title = "New York Times";
     time = "3 minutes ago";
     cents = (value - parseInt(value)).toFixed(2);
     cents = cents.replace(/^0\./, '');
-    html = "<div id=\"infact\" style=\"width:100%; text-align:center; height:" + 200 + "px; position:relative;\">\n  <span style=\"position:absolute; display:inline-block; top:5px; left:5px; font-size:22px; color:steelblue;\">" + title + "</span>\n  <span style=\"position:absolute; top:45px; left:5px; font-size:42px; color:steelblue;\">$</span>\n\n  <span style=\"position:relative; top: 25px; display:inline-block; font-size:180px; color:slategrey;\">" + (parseInt(value)) + "</span>\n  <span style=\"position:relative; top:-45px; display:inline-block; left:50px; font-size:50px; color:darkseagreen;\">." + cents + "</span>\n  <span style=\"position:relative; top:55px; left:-75px; display:inline-block; font-size:20px; color:steelblue;\">" + time + "</span>\n  <svg id=\"chart\" style=\"position:relative; display:block; left:25px; height:100px; width:80%;\"></svg>\n</div>";
+    html = "<div id=\"infact\" style=\"width:100%; text-align:center; height:" + 200 + "px; position:relative;\">\n  <span style=\"position:absolute; display:inline-block; top:5px; left:5px; font-size:22px; color:steelblue;\">" + title + "</span>\n  <span style=\"position:absolute; top:45px; left:5px; font-size:42px; color:steelblue;\">$</span>\n\n  <span style=\"position:relative; top: 25px; display:inline-block; font-size:180px; color:slategrey;\">" + (parseInt(value)) + "</span>\n  <span style=\"position:absolute; top:165px; display:inline-block; left:170px; font-size:50px; color:darkseagreen;\">." + cents + "</span>\n  <span style=\"position:relative; top:55px; left:-75px; display:inline-block; font-size:20px; color:steelblue;\">" + time + "</span>\n  <svg id=\"chart\" style=\"position:relative; display:block; left:25px; height:100px; width:80%;\"></svg>\n</div>";
     $("#fact_pane").html(html);
     return line_chart("#chart");
   };
@@ -71,7 +71,8 @@ head(function() {
           window.webcam("canvasHolder", function(data) {
             return send_to_patrick(data);
           });
-          return message = "<span id=\"by_image\" style=\"position:absolute; text-align:left; z-index:1; left:20px; top: 25px; display:inline-block; font-size:100px; color:steelblue;\">\n  search by image\n</span>";
+          message = "<span id=\"by_image\" style=\"position:absolute; text-align:left; z-index:1; left:20px; top: 25px; display:inline-block; font-size:100px; color:steelblue;\">\n  search by image\n</span>";
+          return $(this).append("<div style='position:absolute; z-index:4; top:0px; height:10px; background-color:steelblue; width:100%;'></div>");
         }
       }, function() {});
       div({
@@ -91,7 +92,7 @@ head(function() {
         style: "position:absolute; display:block; left:50%; top:0px; width:1px; height:" + window.my_height + "px; background-color:black;"
       });
       return div({
-        style: "position:absolute; display:block; left:0%; top:50%; height:1px; width:" + window.my_width + "px; background-color:black;"
+        style: "position:absolute; display:block; left:0%; top:38%; height:1px; width:" + window.my_width + "px; background-color:black;"
       });
     });
   };
