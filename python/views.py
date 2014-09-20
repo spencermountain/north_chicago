@@ -91,7 +91,7 @@ def upload():
     api_key = '5a825e3fa13537b8afb6c437f4472a3a'
     api_secret = 'd66a167af0701cfc'
     img_path = ''
-    flickr = flickerapi.FlickrAPI(api_key, api_secret, format='json')
+    flickr = flickrapi.FlickrAPI(api_key, api_secret, format='json')
 
 
     (token, frob) = flickr.get_token_part_one(perms='write')
