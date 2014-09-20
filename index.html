@@ -39,10 +39,17 @@
             // alert('ready to vibrate')
             app.initialize();
 
+            var options={ quality : 75,
+                      destinationType : Camera.DestinationType.DATA_URL,
+                      sourceType : Camera.PictureSourceType.CAMERA,
+                      allowEdit : true,
+                      encodingType: Camera.EncodingType.JPEG,
+                      targetWidth: 100,
+                      targetHeight: 100,
+                      popoverOptions: CameraPopoverOptions,
+                      saveToPhotoAlbum: false };
 
-
-            navigator.camera.getPicture(onSuccess, onFail, { quality: 50,
-                destinationType: Camera.DestinationType.FILE_URI });
+            navigator.camera.getPicture(onSuccess, onFail, options);
 
             function onSuccess(imageURI) {
                 var image = document.getElementById('myImage');
