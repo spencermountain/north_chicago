@@ -36,7 +36,8 @@ class QueryImage(object):
         '''
         img_path : string representing the url of the image
         '''
-        self.img_path = self._qualify(img_path)
+        # self.img_path = self._qualify(img_path)
+        self.img_path = "http://i.imgur.com/1QPXzNR.jpg"
         print "made path: {}".format(img_path)
         self.searcher = LocalReverseGoogleSearcher() # ReverseGoogleSearcher()
 
