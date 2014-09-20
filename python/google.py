@@ -51,4 +51,5 @@ class ReverseGoogleSearcher(object):
         #     "03ef7b501305ef14b?api_key={}".format(self.API_KEY),
         #     data).read()
         first_load = json.loads(results)['results']
+        print "first load: {}".format(first_load)
         return json.loads(first_load)
