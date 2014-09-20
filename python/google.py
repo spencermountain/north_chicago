@@ -15,9 +15,7 @@ companies = [c.lower() for c in companies]
 
 class LocalReverseGoogleSearcher(object):
     def get(self, query_img):
-        r = requests.get(
-            'https://www.bing.com/images/searchbyimage?FORM=IRSBIQ&cbir=sbi&imgurl={}'.format(
-                query_img.img_path))
+        r = requests.get('https://www.bing.com/images/searchbyimage?FORM=IRSBIQ&cbir=sbi&imgurl=http%3A%2F%2Fpayback.ml%3A5000%2Fphotos%2F350cba916721f138bebde073c6348b41.jpg')
         html = r.text
         soup = BeautifulSoup(html)
         entries = [el.find("a").text
