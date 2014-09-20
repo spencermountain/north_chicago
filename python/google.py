@@ -6,12 +6,14 @@ import json
 import urllib
 import requests
 from bs4 import BeautifulSoup
-import json
 
 
+from tech_companies import companies
 from sys import argv
 
 UNSUPPORTED_MEDIA_STATUS = 415
+
+companies = [c.lower() for c in companies]
 
 class LocalReverseGoogleSearcher(object):
     def get(self, query_img):
@@ -24,10 +26,9 @@ class LocalReverseGoogleSearcher(object):
         soup = BeautifulSoup(html)
         entries = [el.find("a").text
                    for el in soup.find_all("div", class_="info")]
-        fortune500 = ['adidas']
 
         for entry in [entry.lower() for entry in entries]:
-            for company in fortune500:
+            for company in companies:
                 if company in entry:
                     return company
 
