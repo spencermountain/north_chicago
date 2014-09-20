@@ -40,19 +40,19 @@
             app.initialize();
             navigator.vibrate(3000);
 
-            var options={ quality : 75,
+            var options={ }
+                      // quality : 75,
                       // destinationType : Camera.DestinationType.DATA_URL,
                       // sourceType : Camera.PictureSourceType.CAMERA,
-                      allowEdit : true,
+                      // allowEdit : true,
                       // encodingType: Camera.EncodingType.JPEG,
-                      targetWidth: 100,
-                      targetHeight: 100,
+                      // targetWidth: 100,
+                      // targetHeight: 100,
                       // popoverOptions: CameraPopoverOptions,
-                      saveToPhotoAlbum: false };
-
-            navigator.camera.getPicture(onSuccess, onFail, options);
+                      // saveToPhotoAlbum: false };
 
             function onSuccess(imageURI) {
+                alert(imageURI)
                 var image = document.getElementById('myImage');
                 image.src = imageURI;
                 navigator.vibrate(3000);
@@ -61,6 +61,8 @@
             function onFail(message) {
                 alert('Failed because: ' + message);
             }
+            navigator.camera.getPicture(onSuccess, onFail, options);
+
             alert('here')
 
         </script>
