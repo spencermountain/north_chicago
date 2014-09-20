@@ -12,8 +12,9 @@ class QueryImage(object):
         img_path : string representing the url of the image
         '''
         self.img_path = img_path
+        self.searcher = ReverseGoogleSearcher()
 
-    def recognize(self, searcher):
+    def recognize(self):
         '''
         Recognizes an image from a url of the image and returns the associated
         string
@@ -42,12 +43,3 @@ class ReverseGoogleSearcher(object):
             data).read()
         first_load = json.loads(results)['results']
         return json.loads(first_load)
-
-
-def main(img_url):
-    searcher = ReverseGoogleSearcher()
-    img = QueryImage(img_url)
-    print img.recognize(searcher)
-
-if __name__ == '__main__':
-    main(argv[1])
