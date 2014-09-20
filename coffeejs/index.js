@@ -15,16 +15,17 @@ head(function() {
     time = "3 minutes ago";
     cents = (value - parseInt(value)).toFixed(2);
     cents = cents.replace(/^0\./, '');
-    html = "<div id=\"infact\" style=\"width:100%; text-align:center; height:" + 200 + "px; position:relative;\">\n  <span style=\"position:absolute; display:inline-block; top:5px; left:5px; font-size:22px; color:steelblue;\">" + title + "</span>\n\n  <span style=\"position:relative; top: 25px; display:inline-block; font-size:180px; color:slategrey;\">" + (parseInt(value)) + "</span>\n  <span style=\"position:relative; top:-45px; display:inline-block; font-size:50px; color:darkseagreen;\">." + cents + "</span>\n  <span style=\"position:relative; top:55px; left:-75px; display:inline-block; font-size:20px; color:" + (colourscheme.bluebrowns(0.8)) + ";\">" + time + "</span>\n  <svg id=\"chart\" style=\"position:relative; display:block; left:25px; height:100px; width:80%;\"></svg>\n</div>";
+    html = "<div id=\"infact\" style=\"width:100%; text-align:center; height:" + 200 + "px; position:relative;\">\n  <span style=\"position:absolute; display:inline-block; top:5px; left:5px; font-size:22px; color:steelblue;\">" + title + "</span>\n\n  <span style=\"position:relative; top: 25px; display:inline-block; font-size:180px; color:slategrey;\">" + (parseInt(value)) + "</span>\n  <span style=\"position:relative; top:-45px; display:inline-block; font-size:50px; color:darkseagreen;\">." + cents + "</span>\n  <span style=\"position:relative; top:55px; left:-75px; display:inline-block; font-size:20px; color:steelblue;\">" + time + "</span>\n  <svg id=\"chart\" style=\"position:relative; display:block; left:25px; height:100px; width:80%;\"></svg>\n</div>";
     $("#fact_pane").html(html);
     return line_chart("#chart");
   };
   state = 0;
   change_state = function() {
+    $("#by_image").html('');
     if (state === 0) {
       make_fact();
       $("#fact_pane").animate({
-        height: "50%"
+        height: "80%"
       }, {
         duration: 500,
         easing: "easeOutExpo"
@@ -45,12 +46,16 @@ head(function() {
   }, function() {
     div({
       id: "video_pane",
-      style: "position:relative;  display:block; width:100%; height:80%; overflow:hidden; border:10px solid " + (colourscheme.bluebrowns(0.6)) + "; border-radius:5px;",
+      style: "position:relative;  display:block; width:100%; height:80%; overflow:hidden; border-radius:5px;",
       insert: function() {
-        var video;
-        video = "<div id=\"canvasHolder\" style=\"display:none;\"></div>\n<video id=\"video\" style=\"position:absolute; top:0px; cursor:pointer; width:100%; height:400px; \" src=\"\"></video>";
+        var message, video;
+        video = "<div id=\"canvasHolder\" style=\"display:none;\"></div>\n<video id=\"video\" style=\"position:absolute; top:0px; cursor:pointer; width:700px; height:400px; \" src=\"\"></video>";
         $(this).ojAppend(video);
-        return window.webcam("canvasHolder", send_to_patrick);
+        window.webcam("canvasHolder", function(data) {
+          return send_to_patrick(data);
+        });
+        message = "<span id=\"by_image\" style=\"position:absolute; text-align:left; z-index:1; left:20px; top: 25px; display:inline-block; font-size:100px; color:steelblue;\">\n  search by image\n</span>";
+        return $(this).append(message);
       }
     }, function() {});
     return div({
@@ -62,7 +67,7 @@ head(function() {
     }, function() {});
   }));
   return send_to_patrick = function(data) {
-    return alert(data);
+    return change_state();
   };
 });
 
