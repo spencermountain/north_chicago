@@ -28,6 +28,9 @@ class TwilioClient(object):
         self.acc_sid = tw_app_id
         self.twilio = TwilioRestClient(tw_client_id, tw_secret_key)
 
+    @staticmethod
+    def _plusify(num):
+        return ("+{}" if not "+" in num else "{}").format(num)
 
     def get_media(self, recvd):
         return self.twilio.media(recvd.sid)
