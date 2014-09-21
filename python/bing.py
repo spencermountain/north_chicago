@@ -32,8 +32,8 @@ class BingSearcher(object):
                 if potential_match in entry:
                     match = potential_match
                     return match, True
-                else:
-                    print "{} doesn't match".format(potential_match)
+                #else:
+                #    print "{} doesn't match".format(potential_match)
 
 
 class QueryImage(object):
