@@ -4,7 +4,7 @@ from tornado.wsgi import WSGIContainer
 from tornado.httpserver import HTTPServer
 from tornado.ioloop import IOLoop
 
-from views import app
+from server import app
 
 if __name__ == "__main__":
     server = HTTPServer(WSGIContainer(app))

@@ -5,7 +5,7 @@ Werkzeug==0.9.6
 argparse==1.2.1
 astroid==1.2.1
 beautifulsoup4==4.3.2
-blpapi==3.5.5
+#blpapi==3.5.5
 flickrapi==1.4.4
 gnureadline==6.3.3
 ipdb==0.8
