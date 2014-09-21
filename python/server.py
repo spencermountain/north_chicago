@@ -89,12 +89,12 @@ def receive_text():
 
     try:
         best_match = info['best_match']
-    except KeyError:
+    except TypeError:
         return tw_client.reject()
 
     try:
         useful_info = info['booty']
-    except (KeyError, TypeError):
+    except TypeError:
         return tw_client.private(best_match)
     try:
         tw_client.accept(recvd, useful_info)
