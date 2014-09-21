@@ -13,12 +13,24 @@ Bid: {:.2f}'''
     COUNTRY_FMT = '''Country: {}
 Population: {:.0f} million
 Unemployment rate: {:.3f}%'''
+
     BASE_FMT = '''
     <?xml version="1.0" encoding="UTF-8"?>
     <Response>
     <Message>{}.</Message>
     </Response>
     '''
+
+    MEDIA_FMT = '''
+    <?xml version="1.0" encoding="UTF-8"?>
+    <Response>
+    <Message>
+    <Media>{}</Media>
+    <Body>{}.</Body>
+    </Message>
+    </Response>
+    '''
+
 
     REJ_FMT = "Nothing recognized."
     PRIV_FMT = "This company is not privately traded."
@@ -40,9 +52,10 @@ Unemployment rate: {:.3f}%'''
         return self.twilio.media(recvd.sid)
 
 
-    def _message(self, recvd, body):
+    def _message(self, recvd, body, media=None):
         message = self.twilio.messages.create(
                     body=body,
+                    media_url=[media] if media else None,
             to=self._plusify(recvd.sender),
             from_=self.OUR_NUM)
 
