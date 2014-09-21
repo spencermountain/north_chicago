@@ -253,4 +253,4 @@ def test():
     print return_data("Bloomberg")
     print "DONE!"
 
-#test()
+test()
