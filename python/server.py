@@ -22,20 +22,20 @@ def upload_to_imgur():
     takes a file and uploads it to imgur returning url
     '''
     client_id = '66facd50284cdb5'
-    
+
     if request.method == 'POST':
         fh = request.files['image']
         print "Request has files {}".format(fh)
 
         im = pyimgur.Imgur(client_id)
         resp = im.upload_image(fh, title="test")
-        print resp
+        print "Resp={}".format(resp)
         #if resp.status_code != 200:
         #    print "Something went Wrong {}".format(resp.status_code)
         #    return '', False
 
-        if 'data' in resp:
-            print resp['data']
+        #if 'data' in resp:
+        #    print resp['data']
         #    img = requests.get(
         #        'https://api.imgur.com/3/image/{}'.format(
         #            resp['data']))
