@@ -1,0 +1,140 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/usr/local/bin/node',
+1 verbose cli   '/usr/local/bin/npm',
+1 verbose cli   '-g',
+1 verbose cli   'install',
+1 verbose cli   'angular-route' ]
+2 info using npm@1.4.28
+3 info using node@v0.10.32
+4 verbose cache add [ 'angular-route', null ]
+5 verbose cache add name=undefined spec="angular-route" args=["angular-route",null]
+6 verbose parsed url { protocol: null,
+6 verbose parsed url   slashes: null,
+6 verbose parsed url   auth: null,
+6 verbose parsed url   host: null,
+6 verbose parsed url   port: null,
+6 verbose parsed url   hostname: null,
+6 verbose parsed url   hash: null,
+6 verbose parsed url   search: null,
+6 verbose parsed url   query: null,
+6 verbose parsed url   pathname: 'angular-route',
+6 verbose parsed url   path: 'angular-route',
+6 verbose parsed url   href: 'angular-route' }
+7 silly lockFile 54a09c02-angular-route angular-route
+8 verbose lock angular-route /home/patrick/.npm/54a09c02-angular-route.lock
+9 silly lockFile 54a09c02-angular-route angular-route
+10 silly lockFile 54a09c02-angular-route angular-route
+11 verbose addNamed [ 'angular-route', '' ]
+12 verbose addNamed [ null, '*' ]
+13 silly lockFile 44e54571-angular-route angular-route@
+14 verbose lock angular-route@ /home/patrick/.npm/44e54571-angular-route.lock
+15 silly addNameRange { name: 'angular-route', range: '*', hasData: false }
+16 verbose request where is /angular-route
+17 verbose request registry https://registry.npmjs.org/
+18 verbose request id 018d7459b5b1b91e
+19 verbose url raw /angular-route
+20 verbose url resolving [ 'https://registry.npmjs.org/', './angular-route' ]
+21 verbose url resolved https://registry.npmjs.org/angular-route
+22 verbose request where is https://registry.npmjs.org/angular-route
+23 info trying registry request attempt 1 at 23:49:40
+24 http GET https://registry.npmjs.org/angular-route
+25 http 200 https://registry.npmjs.org/angular-route
+26 silly registry.get cb [ 200,
+26 silly registry.get   { date: 'Sun, 21 Sep 2014 04:49:41 GMT',
+26 silly registry.get     server: 'CouchDB/1.5.0 (Erlang OTP/R16B03)',
+26 silly registry.get     etag: '"4DVS11YYOCBLT7F3E0IZ1YV37"',
+26 silly registry.get     'content-type': 'application/json',
+26 silly registry.get     'cache-control': 'max-age=60',
+26 silly registry.get     'content-length': '3794',
+26 silly registry.get     'accept-ranges': 'bytes',
+26 silly registry.get     via: '1.1 varnish',
+26 silly registry.get     age: '0',
+26 silly registry.get     'x-served-by': 'cache-dfw1834-DFW',
+26 silly registry.get     'x-cache': 'MISS',
+26 silly registry.get     'x-cache-hits': '0',
+26 silly registry.get     'x-timer': 'S1411274981.651368,VS0,VE188',
+26 silly registry.get     vary: 'Accept',
+26 silly registry.get     'keep-alive': 'timeout=10, max=50',
+26 silly registry.get     connection: 'Keep-Alive' } ]
+27 silly addNameRange number 2 { name: 'angular-route', range: '*', hasData: true }
+28 silly addNameRange versions [ 'angular-route', [ '1.2.17-build.163.1' ] ]
+29 verbose addNamed [ 'angular-route', '1.2.17-build.163.1' ]
+30 verbose addNamed [ '1.2.17-build.163.1', '1.2.17-build.163.1' ]
+31 silly lockFile f15aae6c-angular-route-1-2-17-build-163-1 angular-route@1.2.17-build.163.1
+32 verbose lock angular-route@1.2.17-build.163.1 /home/patrick/.npm/f15aae6c-angular-route-1-2-17-build-163-1.lock
+33 silly lockFile 8741993f-lar-route-1-2-17-build-163-1-tgz https://registry.npmjs.org/angular-route/-/angular-route-1.2.17-build.163.1.tgz
+34 verbose lock https://registry.npmjs.org/angular-route/-/angular-route-1.2.17-build.163.1.tgz /home/patrick/.npm/8741993f-lar-route-1-2-17-build-163-1-tgz.lock
+35 verbose addRemoteTarball [ 'https://registry.npmjs.org/angular-route/-/angular-route-1.2.17-build.163.1.tgz',
+35 verbose addRemoteTarball   '68159153263a11e543beffc94b585ab406b3c43e' ]
+36 info retry fetch attempt 1 at 23:49:40
+37 verbose fetch to= /tmp/npm-339-D3V4iBl1/registry.npmjs.org/angular-route/-/angular-route-1.2.17-build.163.1.tgz
+38 http GET https://registry.npmjs.org/angular-route/-/angular-route-1.2.17-build.163.1.tgz
+39 http 200 https://registry.npmjs.org/angular-route/-/angular-route-1.2.17-build.163.1.tgz
+40 silly lockFile 8741993f-lar-route-1-2-17-build-163-1-tgz https://registry.npmjs.org/angular-route/-/angular-route-1.2.17-build.163.1.tgz
+41 silly lockFile 8741993f-lar-route-1-2-17-build-163-1-tgz https://registry.npmjs.org/angular-route/-/angular-route-1.2.17-build.163.1.tgz
+42 silly lockFile f15aae6c-angular-route-1-2-17-build-163-1 angular-route@1.2.17-build.163.1
+43 silly lockFile f15aae6c-angular-route-1-2-17-build-163-1 angular-route@1.2.17-build.163.1
+44 silly lockFile 44e54571-angular-route angular-route@
+45 silly lockFile 44e54571-angular-route angular-route@
+46 silly resolved [ { name: 'angular-route',
+46 silly resolved     version: '1.2.17-build.163.1',
+46 silly resolved     description: 'This is a port of the bower-angular-route package for all the npm fans :)',
+46 silly resolved     main: 'angular-route.js',
+46 silly resolved     scripts: { test: 'echo "Error: no test specified" && exit 1' },
+46 silly resolved     repository:
+46 silly resolved      { type: 'git',
+46 silly resolved        url: 'https://github.com/angular/bower-angular-route' },
+46 silly resolved     keywords: [ 'angular', 'angular-route', 'route' ],
+46 silly resolved     author: '',
+46 silly resolved     license: 'MIT',
+46 silly resolved     bugs: { url: 'https://github.com/angular/bower-angular-route/issues' },
+46 silly resolved     homepage: 'https://github.com/angular/bower-angular-route',
+46 silly resolved     _id: 'angular-route@1.2.17-build.163.1',
+46 silly resolved     dist:
+46 silly resolved      { shasum: '68159153263a11e543beffc94b585ab406b3c43e',
+46 silly resolved        tarball: 'http://registry.npmjs.org/angular-route/-/angular-route-1.2.17-build.163.1.tgz' },
+46 silly resolved     _from: 'angular-route@',
+46 silly resolved     _npmVersion: '1.4.3',
+46 silly resolved     _npmUser: { name: 'mljsimone', email: 'mljsimone@gmail.com' },
+46 silly resolved     maintainers: [ [Object] ],
+46 silly resolved     directories: {},
+46 silly resolved     _shasum: '68159153263a11e543beffc94b585ab406b3c43e',
+46 silly resolved     _resolved: 'https://registry.npmjs.org/angular-route/-/angular-route-1.2.17-build.163.1.tgz' } ]
+47 info install angular-route@1.2.17-build.163.1 into /usr/local/lib
+48 info installOne angular-route@1.2.17-build.163.1
+49 verbose lib/node_modules/angular-route unbuild
+50 verbose tar unpack /home/patrick/.npm/angular-route/1.2.17-build.163.1/package.tgz
+51 silly lockFile 2df5d1de-l-lib-node-modules-angular-route tar:///usr/local/lib/node_modules/angular-route
+52 verbose lock tar:///usr/local/lib/node_modules/angular-route /home/patrick/.npm/2df5d1de-l-lib-node-modules-angular-route.lock
+53 silly lockFile 01219f1f-e-1-2-17-build-163-1-package-tgz tar:///home/patrick/.npm/angular-route/1.2.17-build.163.1/package.tgz
+54 verbose lock tar:///home/patrick/.npm/angular-route/1.2.17-build.163.1/package.tgz /home/patrick/.npm/01219f1f-e-1-2-17-build-163-1-package-tgz.lock
+55 silly gunzTarPerm modes [ '755', '644' ]
+56 error Error: EACCES, mkdir '/usr/local/lib/node_modules/angular-route'
+56 error  { [Error: EACCES, mkdir '/usr/local/lib/node_modules/angular-route']
+56 error   errno: 3,
+56 error   code: 'EACCES',
+56 error   path: '/usr/local/lib/node_modules/angular-route',
+56 error   fstream_type: 'Directory',
+56 error   fstream_path: '/usr/local/lib/node_modules/angular-route',
+56 error   fstream_class: 'DirWriter',
+56 error   fstream_stack:
+56 error    [ '/usr/local/lib/node_modules/npm/node_modules/fstream/lib/dir-writer.js:36:23',
+56 error      '/usr/local/lib/node_modules/npm/node_modules/mkdirp/index.js:46:53',
+56 error      'Object.oncomplete (fs.js:107:15)' ] }
+57 error Please try running this command again as root/Administrator.
+58 error System Linux 3.11.0-23-generic
+59 error command "/usr/local/bin/node" "/usr/local/bin/npm" "-g" "install" "angular-route"
+60 error cwd /home/patrick/hacking/python/north_chicago/mobile/www
+61 error node -v v0.10.32
+62 error npm -v 1.4.28
+63 error path /usr/local/lib/node_modules/angular-route
+64 error fstream_path /usr/local/lib/node_modules/angular-route
+65 error fstream_type Directory
+66 error fstream_class DirWriter
+67 error code EACCES
+68 error errno 3
+69 error stack Error: EACCES, mkdir '/usr/local/lib/node_modules/angular-route'
+70 error fstream_stack /usr/local/lib/node_modules/npm/node_modules/fstream/lib/dir-writer.js:36:23
+70 error fstream_stack /usr/local/lib/node_modules/npm/node_modules/mkdirp/index.js:46:53
+70 error fstream_stack Object.oncomplete (fs.js:107:15)
+71 verbose exit [ 3, true ]
