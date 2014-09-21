@@ -90,12 +90,14 @@ def receive_text():
     try:
         best_match = info['best_match']
     except TypeError:
-        return jsonify(tw_client.reject(recvd))
+        tw_client.reject(recvd)
+        return jsonify({})
 
     try:
         useful_info = info['booty']
     except TypeError:
-        return jsonify(tw_client.private(recvd))
+        tw_client.private(recvd)
+        return jsonify({})
 
     try:
         tw_client.accept(recvd, best_match, useful_info)
