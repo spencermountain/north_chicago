@@ -62,6 +62,9 @@ def info_for_link(link):
 
     return {'code': 200, 'best_match': best_match, 'booty': json_data}
 
+def is_country(info):
+    return info['type'] == 'Country'
+
 @app.route("/text_recv", methods=["GET"])
 def receive_text():
     params = request.args
@@ -89,7 +92,7 @@ def receive_text():
 
     try:
         best_match = info['best_match']
-    except TypeError:
+    except (KeyError, TypeError):
         tw_client.reject(recvd)
         return jsonify({})
 
@@ -100,11 +103,11 @@ def receive_text():
         return jsonify({})
 
     try:
-        tw_client.accept(recvd, best_match, useful_info)
-    except (KeyError, TypeError):
-        try:
+        if is_country(useful_info):
             tw_client.country(recvd, best_match, useful_info)
-        except TypeError:
-            pass
+        else:
+            tw_client.accept(recvd, best_match, useful_info)
+    except (KeyError, TypeError):
+        tw_client.reject(recvd)
 
     return jsonify({})
