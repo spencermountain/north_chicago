@@ -14,7 +14,7 @@ UNSUPPORTED_MEDIA_STATUS = 415
 
 companies = [c.lower() for c in companies]
 countries = [c.lower() for c in all_countries]
-total_lst = list(set(companies) + set(countries))
+total_lst = list(set(companies).union(set(countries)))
 
 class BingSearcher(object):
     def get(self, query_img):
