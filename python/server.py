@@ -81,7 +81,7 @@ def receive_text():
         tw_client.reject(recvd)
     else:
         info = info_for_link(params.get("MediaUrl0"))
-        print "got info, " info
+        print "got info ", info
         tw_client.accept(recvd, info['booty'])
 
     return jsonify({})
