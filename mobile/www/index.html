@@ -34,25 +34,24 @@
       <ion-content>
         <div>
           <div>
-            <button class="button button-full button-positive landing-button"
+            <form action="http://gooberapp.cloudapp.net/upload"
+                  method="post"
+                  id="hiddenForm">
+              <button class="button button-full button-positive landing-button"
                     ng-click="takePhoto()">
-              Take
-            </button>
+                Take
+              </button>
           </div>
           <div>
             <button class="button button-full button-assertive landing-button"
-               ng-click="uploadPhoto()">
+                    ng-click="uploadPhoto()">
               Upload
             </button>
           </div>
         </div>
       </ion-content>
     </ion-pane>
-    <div class="hidden">
-      <form action="http://gooberapp.cloudapp.net/upload"
-            method="post"
-            id="hiddenForm">
-        <input type="file" name="image" id="hiddenUploader">
+
       </form>
     </div>
 

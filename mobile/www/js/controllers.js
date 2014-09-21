@@ -14,9 +14,6 @@ controllers.controller("IndexCtrl", [
       // var fd = {'image': file};
       // alert("more trying");
 
-      $("#hiddenUploader").val(file);
-      $("#hiddenForm").submit();
-
       // $http.post(UPLOAD_URL, JSON.stringify(fd), {
       //   withCredentials: true,
       //   headers: {'Content-Type': 'application/json'},

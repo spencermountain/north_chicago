@@ -7,7 +7,11 @@ import pyimgur
 from flask import Flask, request, render_template, jsonify, send_file, abort
 import requests
 
+from sms import RecievedText, TwilioClient
+
 app = Flask(__name__, static_url_path='')
+
+tw_client = TwilioClient()
 
 class BadFileError(Exception):
     pass
@@ -54,3 +58,17 @@ def upload_to_imgur():
         return jsonify({'code': 400, 'message': json_data['error']})
 
     return jsonify({'code': 200, 'best_match': best_match, 'booty': json_data})
+
+
+@app.route("/text_recv", methods=["GET"])
+def receive_text():
+    params = request.args
+    print ("got request: ", request)
+    print ("request.args: ", request.args)
+
+    recvd = RecievedText(params.get("From").strip("+"),
+                         params.get("Sid"))
+
+    print "got twilreq: ", recvd
+
+    media = tw_client.get_media(recvd)
