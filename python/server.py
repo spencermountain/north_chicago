@@ -101,7 +101,7 @@ def receive_text():
 
     try:
         tw_client.accept(recvd, best_match, useful_info)
-    except (TypeError, KeyError):
+    except (KeyError, TypeError):
         tw_client.country(recvd, best_match, useful_info)
 
     return jsonify({})
