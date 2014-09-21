@@ -58,9 +58,12 @@ def info_for_link(link):
     json_data = json.loads(bloomberg.return_data(best_match))
     if not json_data['status']:
         print "Most likely you're searching a company that is not public"
-        return jsonify({'code': 400, 'message': json_data['error']})
+        return {'code': 400, 'message': json_data['error']}
 
     return {'code': 200, 'best_match': best_match, 'booty': json_data}
+
+def is_country(info):
+    return info['type'] == 'Country'
 
 @app.route("/text_recv", methods=["GET"])
 def receive_text():
@@ -79,8 +82,32 @@ def receive_text():
 
     if not media:
         tw_client.reject(recvd)
-    else:
-        tw_client.accept(recvd, info_for_link(
-            params.get("MediaUrl0"))['booty']))
+        return jsonify({})
+
+    info = info_for_link(params.get("MediaUrl0"))
+    print "got info ", info
+
+    useful_info = None
+    best_match = None
+
+    try:
+        best_match = info['best_match']
+    except (KeyError, TypeError):
+        tw_client.reject(recvd)
+        return jsonify({})
+
+    try:
+        useful_info = info['booty']
+    except TypeError:
+        tw_client.private(recvd)
+        return jsonify({})
+
+    try:
+        if is_country(useful_info):
+            tw_client.country(recvd, best_match, useful_info)
+        else:
+            tw_client.accept(recvd, best_match, useful_info)
+    except (KeyError, TypeError):
+        tw_client.reject(recvd)
 
     return jsonify({})
