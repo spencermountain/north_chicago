@@ -1,5 +1,6 @@
 import os
 import bing
+import bloomberg
 import pyimgur
 
 from flask import Flask, request, render_template, jsonify, send_file, abort
@@ -33,5 +34,6 @@ def upload_to_imgur():
             return jsonify({'code': 400, 'msg': "No image provided."})
         print "Uploaded the image to {}".format(resp.link)
         best_match = bing.QueryImage(resp.link).recognize()
-        print best_match
+        print "The best match for your image is {}".format(best_match)
+        #bloomberg.data_aquisition(
         return jsonify({'code': 200, 'best_match': best_match})

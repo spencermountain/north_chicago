@@ -6,12 +6,12 @@ unemp={'japan': 'EHUPJPY Index', 'lithuania': 'EHUPLTY Index', 'north america': 
 
 # Function to get stock ticker from Strings (Company Names).
 # Returns "No Results Found" if there are no results
-def fun (q):
+def return_data(query):
     response = {}
     try:
-        x = wpop[q.lower()]
-        y = unemp[q.lower()]
-        return fund(x, y)            
+        x = wpop[query.lower()]
+        y = unemp[query.lower()]
+        return countries(x, y)
     except:
         sessionOptions = blpapi.SessionOptions()
         sessionOptions.setServerHost("10.8.8.1")
@@ -23,10 +23,9 @@ def fun (q):
         instrumentService = session.getService("//blp/instruments")
         request = instrumentService.createRequest("instrumentListRequest")
 
-        request.set("query", q)
+        request.set("query", query)
         request.set("maxResults", 1)
 
-        #print "Sending Request: ", request
         session.sendRequest(request)
 
         event = session.nextEvent()
@@ -34,18 +33,15 @@ def fun (q):
 
         while (run):
             event = session.nextEvent()
-            #print event.eventType()
             if event.eventType() == 5:
                 for msg in event:
-                    #print "MSG", msg
                     if msg.hasElement("results"):
                         fields = msg.getElement("results")
                         if fields.numValues() > 0:
                             for field in fields.values():
                                 sec = field.getElementAsString("security")
                                 dec = field.getElementAsString("description")
-                                #print sec
-                                return func(sec)
+                                return companies(sec)
                             run = False
                         else:
                             print "No Results Found"
@@ -53,17 +49,17 @@ def fun (q):
                     else:
                         print "No Results Found"
                         run = False
-                    
+
 #Functions to get Stock Information
-def func(q):
+def companies(security):
     response = {}
-    if "<equity>" not in q:
+    if "<equity>" not in security:
         response['status'] = False
         response['type'] = "Fail"
         response['error'] = "Not a Valid Security"
         return json.dumps(response)
     else:
-        q = q.replace("<equity>", " Equity")
+        security = security.replace("<equity>", " Equity")
         sessionOptions = blpapi.SessionOptions()
         sessionOptions.setServerHost("10.8.8.1")
         sessionOptions.setServerPort(8194)
@@ -74,7 +70,7 @@ def func(q):
         request = refDataService.createRequest("ReferenceDataRequest")
 
         # append securities to request
-        request.append("securities", q)
+        request.append("securities", security)
         request.append("fields", "PX_LAST")
         request.append("fields", "DS002")
         request.append("fields", "PX_BID")
@@ -82,7 +78,6 @@ def func(q):
         request.append("fields", "VOLUME_AVG_30D")
         request.append("fields", "VOLATILITY_90D")
 
-        #print "Sending Request:", request
         session.sendRequest(request)
 
         try:
@@ -143,7 +138,7 @@ def func(q):
             return json.dumps(response)
 
 # Function to get Country Information
-def fund(q, r):
+def countries(country_population, unemployment_rate):
     sessionOptions = blpapi.SessionOptions()
     sessionOptions.setServerHost("10.8.8.1")
     sessionOptions.setServerPort(8194)
@@ -154,7 +149,7 @@ def fund(q, r):
     request = refDataService.createRequest("ReferenceDataRequest")
 
     # append securities to request
-    request.append("securities", q)
+    request.append("securities", country_population)
     request.append("fields", "PX_LAST")
 
     #print "Sending Request:", request
@@ -205,7 +200,7 @@ def fund(q, r):
     request = refDataService.createRequest("ReferenceDataRequest")
 
     # append securities to request
-    request.append("securities", r)
+    request.append("securities", unemployment_rate)
     request.append("fields", "PX_LAST")
 
     #print "Sending Request:", request
@@ -247,13 +242,11 @@ def fund(q, r):
 
 def test():
     print "IBM"
-    print fun("ibm")
-    print
+    print return_data("ibm")
     print "Canada"
-    print fun("Canada")
-    print
+    print return_data("Canada")
     print "Apple"
-    print fun("apple")
-    print
+    print return_data("apple")
     print "DONE!"
-    
+
+#test()
