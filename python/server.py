@@ -90,7 +90,7 @@ def receive_text():
     try:
         useful_info = info['booty']
         best_match = info['best_match']
-    except KeyError:
+    except KeyError, TypeError:
         tw_client.private()
         return jsonify({})
     try:
