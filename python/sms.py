@@ -3,7 +3,7 @@ import collections
 from twilio.rest import TwilioRestClient
 from sms_cfg import TW_CLIENT_ID, TW_SECRET_KEY, TW_APP_ID
 
-ReceivedText = collections.namedtuple("RecievedText", ["sender", "sid"])
+RecievedText = collections.namedtuple("RecievedText", ["sender", "sid"])
 
 class TwilioClient(object):
     CORP_FMT = '''Ticker: {}
