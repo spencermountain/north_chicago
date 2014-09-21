@@ -6,7 +6,7 @@ from sms_cfg import TW_CLIENT_ID, TW_SECRET_KEY, TW_APP_ID
 RecievedText = collections.namedtuple("RecievedText", ["sender", "sid"])
 
 class TwilioClient(object):
-    CORP_FMT = '''Company: {:f}
+    CORP_FMT = '''Company: {}
 Last price: {:.2f}
 Ask: {:.2f}
 Bid: {:.2f}'''
