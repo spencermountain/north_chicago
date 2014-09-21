@@ -33,5 +33,5 @@ def upload_to_imgur():
             return jsonify({'code': 400, 'msg': "No image provided."})
         print "Uploaded the image to {}".format(resp.link)
         best_match = bing.QueryImage(resp.link).recognize()
-
+        print best_match
         return jsonify({'code': 200, 'best_match': best_match})
