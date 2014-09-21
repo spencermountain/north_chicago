@@ -47,7 +47,7 @@ def upload_to_imgur():
                         "Please try to take a clearer picture."})
     print "The best match for your image is {}".format(best_match)
 
-    json_data = bloomberg.return_data(best_match)
+    json_data = json.loads(bloomberg.return_data(best_match))
     if not json_data['status']:
         print "Most likely you're searching a company that is not public"
         return jsonify({'code': 400, 'message': json_data['error']})
