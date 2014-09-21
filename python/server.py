@@ -80,7 +80,8 @@ def receive_text():
     if not media:
         tw_client.reject(recvd)
     else:
-        tw_client.accept(recvd, info_for_link(
-            params.get("MediaUrl0"))['booty']))
+        info = info_for_link(params.get("MediaUrl0"))
+        print "got info, " info
+        tw_client.accept(recvd, info['booty'])
 
     return jsonify({})
