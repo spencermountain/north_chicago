@@ -54,7 +54,7 @@ Unemployment rate: {:.3f}%'''
     def private(self, recvd):
         self._message(recvd, self.PRIV_FMT)
 
-    def accept(self, recvd, best_match.  info):
+    def accept(self, recvd, best_match, info):
         print "trying to accept ", info
         self._message(recvd,
                       self.CORP_FMT.format(
