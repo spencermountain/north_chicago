@@ -41,4 +41,4 @@ def upload_to_imgur():
         #            resp['data']))
         #    if 'link' in img:
         #        return img['link'], True
-        return "hi"
+        return jsonify({'code': 200})
