@@ -19,7 +19,7 @@ class BadFileError(Exception):
 @app.route('/', methods=['GET', 'POST'])
 def index():
     print "Server up and running."
-    return jsonify({"resp": "As you were."})
+    return render_template("index.html")
 
 @app.route('/upload', methods=['POST'])
 def upload_to_imgur():
