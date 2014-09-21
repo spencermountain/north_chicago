@@ -60,12 +60,12 @@ Unemployment rate: {:.3f}'''
         self._message(recvd,
                       self.CORP_FMT.format(
                           info['security'],
-                          info['PX_LAST'],
-                          info['PX_ASK'],
-                          info['PX_BID']))
+                          float(info['PX_LAST']),
+                          float(info['PX_ASK']),
+                          float(info['PX_BID'])))
     def country(self, recvd, best_match, info):
         self._message(recvd,
                       self.COUNTRY_FMT.format(
                           best_match,
-                          info['WPOP'],
-                          info['UNEMP']))
+                          float(info['WPOP']),
+                          float(info['UNEMP'])))
