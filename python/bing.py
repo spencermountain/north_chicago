@@ -13,11 +13,11 @@ UNSUPPORTED_MEDIA_STATUS = 415
 
 companies = [c.lower() for c in companies]
 
-class LocalReverseGoogleSearcher(object):
+class BingSearcher(object):
     def get(self, query_img):
         r = requests.get(
-            'https://www.bing.com/images/searchbyimage?FORM=IRSBIQ&cbir=sbi&imgurl={}'.format(
-                query_img.img_path))
+            'https://www.bing.com/images/searchbyimage?'\
+            'FORM=IRSBIQ&cbir=sbi&imgurl={}'.format(query_img.img_path))
         html = r.text
         soup = BeautifulSoup(html)
         entries = [el.find("a").text
@@ -33,20 +33,15 @@ class LocalReverseGoogleSearcher(object):
                 else:
                     print "{} doesn't match".format(company)
 
+
 class QueryImage(object):
-    BASE_URL_FMT = "http://payback.ml:5000/{}"
     def __init__(self, img_path):
         '''
         img_path : string representing the url of the image
         '''
-        self.img_path = self._qualify(img_path)
-        #PATRICK!
-        #self.img_path = "http://i.imgur.com/1QPXzNR.jpg"
+        self.img_path = img_path #on imgur!
         print "made path: {}".format(img_path)
-        self.searcher = LocalReverseGoogleSearcher() # ReverseGoogleSearcher()
-
-    def _qualify(self, partial_path):
-        return self.BASE_URL_FMT.format(partial_path)
+        self.searcher = BingSearcher()
 
     def recognize(self):
         '''
@@ -56,24 +51,3 @@ class QueryImage(object):
         '''
         resp = self.searcher.get(self)
         return resp
-
-
-class ReverseGoogleSearcher(object):
-    API_KEY = '1d27fd4078cf840d5544cf943e642e9a'
-
-    def get(self, image):
-        '''
-        __Input__
-        image: QueryImage with a url of an image
-
-        __Output__
-        json object with fields 'best_search': string
-        and 'direct_matches': list of strings
-        '''
-        data = urllib.urlencode({'image_url': image.img_path})
-        print "sending data: {}".format(data)
-        results = urllib.urlopen("https://sender.blockspring.com/api_v1/blocks/5a1b66ef208007c51a45fda220dbe8db?api_key=774acd76d965921aa9a109a048c4b260", data).read()
-
-        first_load = json.loads(results)['results']
-        print "first load: {}".format(first_load)
-        return json.loads(first_load)

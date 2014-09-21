@@ -2,7 +2,6 @@ import os
 import bing
 import pyimgur
 
-
 from flask import Flask, request, render_template, jsonify, send_file, abort
 import requests
 
@@ -29,16 +28,10 @@ def upload_to_imgur():
 
         im = pyimgur.Imgur(client_id)
         resp = im.upload_image(fh, title="test")
-        print "Resp={}".format(resp)
-        #if resp.status_code != 200:
-        #    print "Something went Wrong {}".format(resp.status_code)
-        #    return '', False
+        if not resp:
+            print "Something went wrong with image upload"
+            return jsonify({'code': 400, 'msg': "No image provided."})
+        print "Uploaded the image to {}".format(resp.link)
+        best_match = bing.QueryImage(resp.link).recognize()
 
-        #if 'data' in resp:
-        #    print resp['data']
-        #    img = requests.get(
-        #        'https://api.imgur.com/3/image/{}'.format(
-        #            resp['data']))
-        #    if 'link' in img:
-        #        return img['link'], True
-        return jsonify({'code': 200})
+        return jsonify({'code': 200, 'best_match': best_match})
