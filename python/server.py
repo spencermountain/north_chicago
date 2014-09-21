@@ -38,6 +38,8 @@ def upload_to_imgur():
         return jsonify({'code': 400, 'message': "No image provided."})
 
     print "Uploaded the image to {}".format(resp.link)
+    best_match = bing.QueryImage(resp.link).recognize()
+
     best_match, ok = bing.QueryImage(resp.link).recognize()
     if not ok:
         print "Stupid Bing"
