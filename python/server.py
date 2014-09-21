@@ -88,11 +88,14 @@ def receive_text():
     best_match = None
 
     try:
-        useful_info = info['booty']
         best_match = info['best_match']
+    except KeyError:
+        return tw_client.reject()
+
+    try:
+        useful_info = info['booty']
     except (KeyError, TypeError):
-        tw_client.private()
-        return jsonify({})
+        return tw_client.private(best_match)
     try:
         tw_client.accept(recvd, useful_info)
     except KeyError:
