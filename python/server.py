@@ -42,8 +42,8 @@ def upload_to_imgur():
     print "The best match for your image is {}".format(best_match)
     if not best_match:
         print "Stupid Bing"
-        return jsonify({'code': 500, 'message': "Sorry, no matches were found.' \
-        ' Please try to take a clearer picture."})
+        return jsonify({'code': 500, 'message': "Sorry, no matches were found. "\
+                        "Please try to take a clearer picture."})
 
     json_data = bloomberg.return_data(best_match)
     return jsonify({'code': 200, 'best_match': best_match, 'booty': json_data})
