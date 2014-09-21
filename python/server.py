@@ -25,7 +25,7 @@ def upload_to_imgur():
     of all the information we deem important to return
     '''
     client_id = '66facd50284cdb5'
-
+    print "request: {}, full: {}".format(request, request.__dict__)
     if request.method != 'POST':
         print "You're using this endpoint wrong, its a POST"
         return jsonify({'code': 400, 'message': "Its a POST"})
