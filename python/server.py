@@ -43,7 +43,7 @@ def upload_to_imgur():
         return jsonify({'code': 400, 'message': "No image provided."})
 
     print "Uploaded the image to {}".format(resp.link)
-    return info_for_link(resp.link)
+    return jsonify(info_for_link(resp.link))
 
 def info_for_link(link):
     # best_match = bing.QueryImage(link).recognize()
@@ -60,8 +60,7 @@ def info_for_link(link):
         print "Most likely you're searching a company that is not public"
         return jsonify({'code': 400, 'message': json_data['error']})
 
-    return jsonify({'code': 200, 'best_match': best_match, 'booty': json_data})
-
+    return {'code': 200, 'best_match': best_match, 'booty': json_data}
 
 @app.route("/text_recv", methods=["GET"])
 def receive_text():
@@ -81,6 +80,7 @@ def receive_text():
     if not media:
         tw_client.reject(recvd)
     else:
-        tw_client.accept(recvd, info_for_link(params.get("MediaUrl0")))
+        tw_client.accept(recvd, info_for_link(
+            params.get("MediaUrl0"))['booty']))
 
     return jsonify({})
