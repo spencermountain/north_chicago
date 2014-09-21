@@ -6,10 +6,13 @@ from sms_cfg import TW_CLIENT_ID, TW_SECRET_KEY, TW_APP_ID
 RecievedText = collections.namedtuple("RecievedText", ["sender", "sid"])
 
 class TwilioClient(object):
-    CORP_FMT = '''Company: {}
-    Last price: {}
-    Ask: {}
-    Bid: {}'''
+    CORP_FMT = '''Company: {:.2f}
+Last price: {:.2f}
+Ask: {:.2f}
+Bid: {:.2f}'''
+    COUNTRY_FMT = '''Country: {}
+Population: {:.0f}
+Unemployment rate: {:.3f}'''
     BASE_FMT = '''
     <?xml version="1.0" encoding="UTF-8"?>
     <Response>
@@ -18,6 +21,8 @@ class TwilioClient(object):
     '''
 
     REJ_FMT = BASE_FMT.format("Nothing recognized.")
+    PRIV_FMT = BASE_FMT.format(
+        "This company is not privately traded.")
     OUR_NUM = "+16466473401"
 
 
@@ -47,6 +52,9 @@ class TwilioClient(object):
     def reject(self, recvd):
         self._message(recvd, self.REJ_FMT)
 
+    def private(self, recvd):
+        self._message(recvd, self.PRIV_FMT)
+
     def accept(self, recvd, info):
         print "trying to accept ", info
         self._message(recvd,
@@ -55,3 +63,9 @@ class TwilioClient(object):
                           info['PX_LAST'],
                           info['PX_ASK'],
                           info['PX_BID']))
+    def country(self, recvd, best_match, info):
+        self._message(recvd,
+                      self.COUNTRY_FMT.format(
+                          best_match,
+                          info['WPOP'],
+                          info['UNEMP']))

@@ -79,9 +79,23 @@ def receive_text():
 
     if not media:
         tw_client.reject(recvd)
-    else:
-        info = info_for_link(params.get("MediaUrl0"))
-        print "got info ", info
-        tw_client.accept(recvd, info['booty'])
+        return jsonify({})
+
+    info = info_for_link(params.get("MediaUrl0"))
+    print "got info ", info
+
+    useful_info = None
+    best_match = None
+
+    try:
+        useful_info = info['booty']
+        best_match = info['best_match']
+    except KeyError:
+        tw_client.private()
+        return jsonify({})
+    try:
+        tw_client.accept(recvd, useful_info)
+    except KeyError:
+        tw_client.country(recvd, best_match, useful_info)
 
     return jsonify({})
