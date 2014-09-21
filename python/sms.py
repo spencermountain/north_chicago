@@ -30,6 +30,4 @@ class TwilioClient(object):
 
 
     def get_media(self, recvd):
-        MEDIA_LIST_FMT = "/Accounts/{acc_sid}/Messages/{msg_sid}/Media"
-        return self.twilio.request(MEDIA_LIST_FMT.format(
-            acc_sid=self.acc_sid, msg_sid=recvd.sid))
+        return self.twilio.media(recvd.sid)
