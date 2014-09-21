@@ -67,8 +67,12 @@ def receive_text():
     print ("request.args: ", request.args)
 
     recvd = RecievedText(params.get("From").strip("+"),
-                         params.get("Sid"))
+                         params.get("MessageSid"))
 
     print "got twilreq: ", recvd
 
     media = tw_client.get_media(recvd)
+
+    print "got media: ", media
+
+    return jsonify({})
