@@ -6,10 +6,10 @@ from sms_cfg import TW_CLIENT_ID, TW_SECRET_KEY, TW_APP_ID
 RecievedText = collections.namedtuple("RecievedText", ["sender", "sid"])
 
 class TwilioClient(object):
-    CORP_FMT = '''Ticker: {}
+    CORP_FMT = '''Company: {}
+    Last price: {}
     Ask: {}
-    Bid: {}
-    Volatility: {}'''
+    Bid: {}'''
     BASE_FMT = '''
     <?xml version="1.0" encoding="UTF-8"?>
     <Response>
@@ -17,7 +17,7 @@ class TwilioClient(object):
     </Response>
     '''
 
-    REJ_FMT = BASE_FMT.format("No object recognized.")
+    REJ_FMT = BASE_FMT.format("Nothing recognized.")
     OUR_NUM = "+16466473401"
 
 
@@ -31,3 +31,22 @@ class TwilioClient(object):
 
     def get_media(self, recvd):
         return self.twilio.media(recvd.sid)
+
+
+    def _message(self, recvd, body):
+        message = self.twilio.messages.create(
+                    body=body,
+            to=self._plusify(recvd.sender),
+            from_=self.OUR_NUM)
+
+        print "sent message: ", message
+
+    def reject(self, recvd):
+        self._message(recvd, self.REJ_FMT)
+
+    def accept(self, recvd, info):
+        self._message(recvd,
+                      self.CORP_FMT(info['security'],
+                                    info['PX_LAST'],
+                                    info['PX_ASK'],
+                                    info['PX_BID']))

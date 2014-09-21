@@ -43,13 +43,16 @@ def upload_to_imgur():
         return jsonify({'code': 400, 'message': "No image provided."})
 
     print "Uploaded the image to {}".format(resp.link)
-    best_match = bing.QueryImage(resp.link).recognize()
+    return info_for_link(resp.link)
 
-    best_match, ok = bing.QueryImage(resp.link).recognize()
+def info_for_link(link):
+    # best_match = bing.QueryImage(link).recognize()
+
+    best_match, ok = bing.QueryImage(link).recognize()
     if not ok:
-        print "Stupid Bing"
-        return jsonify({'code': 500, 'message': "Sorry, no matches were found. "\
-                        "Please try to take a clearer picture."})
+        return jsonify({
+            'code': 500, 'message': "Sorry, no matches were found. "\
+            "Please try to take a clearer picture."})
     print "The best match for your image is {}".format(best_match)
 
     json_data = json.loads(bloomberg.return_data(best_match))
@@ -74,5 +77,10 @@ def receive_text():
     media = tw_client.get_media(recvd)
 
     print "got media: ", media
+
+    if not media:
+        tw_client.reject(recvd)
+    else:
+        tw_client.accept(info_for_link(params.get("MediaUrl0")))
 
     return jsonify({})
