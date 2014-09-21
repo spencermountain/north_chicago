@@ -45,6 +45,7 @@ class TwilioClient(object):
         self._message(recvd, self.REJ_FMT)
 
     def accept(self, recvd, info):
+        print "trying to accept ", info
         self._message(recvd,
                       self.CORP_FMT(info['security'],
                                     info['PX_LAST'],

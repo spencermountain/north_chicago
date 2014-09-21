@@ -58,7 +58,7 @@ def info_for_link(link):
     json_data = json.loads(bloomberg.return_data(best_match))
     if not json_data['status']:
         print "Most likely you're searching a company that is not public"
-        return jsonify({'code': 400, 'message': json_data['error']})
+        return {'code': 400, 'message': json_data['error']}
 
     return {'code': 200, 'best_match': best_match, 'booty': json_data}
 
